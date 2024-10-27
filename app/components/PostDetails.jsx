@@ -13,7 +13,9 @@ function PostDetails() {
   const [rating, setRating] = useState(0); 
   const [comment, setComment] = useState(""); 
   const [reviews, setReviews] = useState([]); 
-  const [openDialog, setOpenDialog] = useState(false); // Popup durumunu kontrol etmek için
+  const [openDialog, setOpenDialog] = useState(false); 
+
+  const userId = typeof window !== 'undefined' ? localStorage.getItem("userId") : null;
 
   useEffect(() => {
     const pathname = window.location.pathname;
@@ -44,10 +46,7 @@ function PostDetails() {
   }, []);
 
   const handleReviewSubmit = async () => {
-    const userId = localStorage.getItem("userId");
-    
     if (!userId) {
-      // Eğer userId yoksa popup göster
       setOpenDialog(true);
       return;
     }
@@ -59,7 +58,7 @@ function PostDetails() {
       const response = await axios.post(`https://pracfix-back.onrender.com/api/review/${postId}`, {
         rating,
         comment,
-        userId, // Kullanıcı ID'sini burada kullanıyoruz
+        userId,
       });
 
       setReviews((prevReviews) => [...prevReviews, response.data.review]);
@@ -125,7 +124,6 @@ function PostDetails() {
         </div>
       </div>
 
-      {/* Kullanıcı kayıt olmadan yorum eklemeye çalıştığında gösterilecek popup */}
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Kayıt Olmanız Gerek</DialogTitle>
         <DialogContent>

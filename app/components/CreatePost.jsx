@@ -7,7 +7,9 @@ function CreatePost() {
   const [description, setDescription] = useState('');
   const [blogPhoto, setBlogPhoto] = useState(null);
   const [message, setMessage] = useState('');
-  const userId = localStorage.getItem('userId'); // User ID'yi localStorage'dan alıyoruz
+  
+  // Tarayıcı ortamında userId'yi kontrol ediyoruz
+  const userId = typeof window !== 'undefined' ? localStorage.getItem("userId") : null;
 
   const handleFileChange = (e) => {
     setBlogPhoto(e.target.files[0]);
@@ -38,7 +40,8 @@ function CreatePost() {
       setDescription('');
       setBlogPhoto(null);
     } catch (error) {
-      setMessage('Gönderi oluşturulurken bir hata oluştu.');
+      const errorMessage = error.response?.data?.message || 'Gönderi oluşturulurken bir hata oluştu.';
+      setMessage(errorMessage);
       console.error('Error creating post:', error);
     }
   };

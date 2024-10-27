@@ -9,13 +9,13 @@ const ProfilePage = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('https://pracfix-back.onrender.com/api/auth/all'); // Backend URL-i buraya yazın
+                const response = await fetch('https://pracfix-back.onrender.com/api/auth/all');
                 const data = await response.json();
 
                 if (response.ok) {
                     setUsers(data.experts);
-                    // LocalStorage'dan userId'yi al
-                    const userId = localStorage.getItem('userId');
+                    // Tarayıcı ortamında isek localStorage'dan userId'yi al
+                    const userId = typeof window !== 'undefined' ? localStorage.getItem('userId') : null;
                     // userId ile eşleşen kullanıcıyı bul
                     const foundUser = data.experts.find(user => user._id === userId);
                     setCurrentUser(foundUser);
@@ -52,9 +52,7 @@ const ProfilePage = () => {
                     <p>Uzmanlık Alanı: {currentUser.uzmanlikAlanlari ? currentUser.uzmanlikAlanlari : 'Belirtilmemiş'}</p>
                 </div>
             )}
-            
-            
-            </div>
+        </div>
     );
 };
 

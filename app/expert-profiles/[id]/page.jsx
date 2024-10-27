@@ -7,7 +7,7 @@ const UserDetails = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
     const [chatId, setChatId] = useState(null);
-    const senderId = localStorage.getItem("userId");
+    const senderId = typeof window !== 'undefined' ? localStorage.getItem("userId") : null;
 
     useEffect(() => {
         const fetchUserById = async () => {

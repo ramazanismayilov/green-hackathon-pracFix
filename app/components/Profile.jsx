@@ -39,7 +39,7 @@ const UsersList = () => {
     <div key={user._id} className="user-card border w-[250px] flex items-center justify-center text-center flex-col p-3">
         <img 
             className='w-[100px] h-[100px] rounded-full' 
-            src={user.profilePhoto ? `http://localhost:7777/${user.profilePhoto}` : 'default-avatar.png'} 
+            src={user.profilePhoto ? `https://pracfix-back.onrender.com/${user.profilePhoto}` : 'default-avatar.png'} 
             alt={`${user.firstName} ${user.lastName}`} 
         />
         <h3 className='text-xl'>{user.firstName} {user.lastName}</h3>

@@ -1,15 +1,14 @@
-import { Container } from '@mui/material'
-import React from 'react'
-import Navbar from '../components/Navbar'
-import ProfilePage from '../components/ProfilePage'
+import React from 'react';
+import Navbar from '../components/Navbar';
+import ProfilePage from '../components/ProfilePage';
 
-function page() {
+function Page() {
   return (
-    <Container className='flex flex-col gap-5'>
+    <div className="max-w-7xl mx-auto px-4 flex flex-col gap-5">
         <Navbar />
-        <ProfilePage/>
-    </Container>
-  )
+        <ProfilePage />
+    </div>
+  );
 }
 
-export default page
+export default Page;

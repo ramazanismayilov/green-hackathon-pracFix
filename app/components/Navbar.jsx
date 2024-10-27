@@ -1,29 +1,28 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdLogin } from "react-icons/md";
-import axios from 'axios'; // Axios kütüphanesini içe aktarın
-import { AiOutlineLoading } from 'react-icons/ai';
-
+import axios from 'axios';
 
 function Navbar() {
-  const [userId, setUserId] = useState("");
-  const [loading, setLoading] = useState(true); // Yükleniyor durumu
+  const [userId, setUserId] = useState(null); // userId durumu
+  const [isClient, setIsClient] = useState(false); // Tarayıcıda mı kontrolü
 
   useEffect(() => {
-    const id = localStorage.getItem("userId");
-    setUserId(id);
-    setLoading(false); // Yükleme tamamlandı
+    // Tarayıcıda olup olmadığımızı kontrol ediyoruz
+    setIsClient(true);
+    const storedUserId = typeof window !== 'undefined' ? localStorage.getItem('userId') : null;
+    setUserId(storedUserId); // userId'yi duruma atıyoruz
   }, []);
 
   const handleLogout = async () => {
-          localStorage.clear(); // localStorage'daki tüm verileri temizle
-        window.location.reload(); // Sayfayı yenile
-        window.location.href = '/';
+    localStorage.clear(); // localStorage'daki tüm verileri temizle
+    window.location.reload(); // Sayfayı yenile
+    window.location.href = '/';
   };
 
   return (
-    <div className='w-full py-5 flex items-center justify-between bg-red-500'>
-      <a href="/" className='text-3xl font-bold text-red-500'>Pracfix</a>
+    <div className='w-full py-5 flex items-center justify-between'>
+      <a href="/" className='text-3xl font-bold'>Pracfix</a>
 
       <div className='flex items-center justify-center gap-5'>
         <a href="/">Ana Səhifə</a>
@@ -31,29 +30,23 @@ function Navbar() {
         <a href="/expert-profile">Expertlər</a>
         <a href="/contact">Bizimlə Əlaqə</a>
 
-        {loading ? (
-  <div className="flex items-center gap-2">
-    <AiOutlineLoading className="animate-spin text-blue-600" />
-    <p>Yüklənir...</p>
-  </div>
-) : userId ? (
-  <button
-    onClick={handleLogout}
-    className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200"
-  >
-    <MdLogin className="text-lg" />
-    <span>Çıxış</span>
-  </button>
-) : (
-  <a
-    href="/login"
-    className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition-colors duration-200"
-  >
-    <MdLogin className="text-lg" />
-    <span>Daxil ol</span>
-  </a>
-)}
-
+        {isClient && userId ? ( // Tarayıcıda olduğumuzu ve userId'nin mevcut olduğunu kontrol et
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200"
+          >
+            <MdLogin className="text-lg" />
+            <span>Çıxış</span>
+          </button>
+        ) : (
+          <a
+            href="/login"
+            className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition-colors duration-200"
+          >
+            <MdLogin className="text-lg" />
+            <span>Daxil ol</span>
+          </a>
+        )}
       </div>
     </div>
   );
