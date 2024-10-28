@@ -14,7 +14,7 @@ const Chatbot = () => {
     <div className="fixed bottom-5 right-5 z-50">
       <button
         onClick={toggleChatbot}
-        className="flex items-center justify-center w-[80px] h-[80px] rounded-full bg-green-600 text-white shadow-lg hover:bg-green-700 transition duration-200"
+        className="flex items-center justify-center w-[80px] h-[80px] rounded-full bg-[#106861] text-white shadow-lg hover:bg-green-700 transition duration-200"
       >
         {isOpen ? (
           <AiOutlineClose className="text-3xl" /> // Açıkken close ikonu

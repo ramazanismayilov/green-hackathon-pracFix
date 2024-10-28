@@ -23,7 +23,7 @@ function page() {
 
   return (
     <>
-      <Container sx={{padding : "20px" , display: "flex" , flexDirection : "column" , gap : "3px" , position : "relative" }}    >
+      <Container sx={{padding : "20px" , display: "flex" , flexDirection : "column" , gap : "20px" , position : "relative" }}    >
       <Navbar/>
 
       <Hero />

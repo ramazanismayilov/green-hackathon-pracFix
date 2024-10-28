@@ -27,8 +27,9 @@ function About() {
             <div>
               <h1 className="text-4xl md:text-6xl font-bold mb-4">Haqqımızda</h1>
               <div className="flex items-center justify-center gap-3">
-                <a href="/">Ana səhifə</a>{" / "}
-                <a href="#">Haqqımızda</a>
+                <a href="/">Ana səhifə</a>/
+                
+                                <a href="#">Haqqımızda</a>
               </div>
             </div>
           </div>

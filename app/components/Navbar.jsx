@@ -32,7 +32,11 @@ function Navbar() {
     <div className='w-full flex items-center justify-between'>
       <div className='flex items-center justify-center gap-3' >
       <img src="/logo.jpg" className='w-[30px] md:w-[50px]' alt="" />
-      <a href="/" className='text-3xl font-bold'>Pracfix</a>
+      <a href="/" className='text-3xl font-bold'>Prac
+      <span className='text-[#106861]'>
+      fix
+      </span>
+      </a>
       </div>
 
       <div className='flex items-center justify-center res-med  gap-5'>
@@ -48,7 +52,7 @@ function Navbar() {
       {isClient && userId ? ( 
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200"
+            className="flex items-center gap-2 px-4 py-2 bg-[#106861] text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200"
           >
             <MdLogin className="text-lg" />
             <span>Çıxış</span>
@@ -56,7 +60,7 @@ function Navbar() {
         ) : (
           <a
             href="/login"
-            className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition-colors duration-200"
+            className="flex items-center gap-2 px-4 py-2 bg-[#106861] text-white rounded-lg shadow-md hover:bg-green-600 transition-colors duration-200"
           >
             <MdLogin className="text-lg" />
             <span>Daxil ol</span>

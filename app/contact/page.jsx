@@ -97,7 +97,7 @@ function page() {
     {
       id: 1,
       icon: <FaLocationDot className="text-xl" />,
-      content: "Ganja, Azerbaycan",
+      content: "Gəncə, Azerbaycan",
       link: "https://www.google.com/maps?q=Ganja,+Azerbaycan",
     },
     {
@@ -115,7 +115,7 @@ function page() {
     {
       id: 4,
       icon: <FaInstagram className="text-xl" />,
-      content: "pracfix",
+      content: "@pracfix",
       link: "https://www.instagram.com/pracfix/",
     },
     {
