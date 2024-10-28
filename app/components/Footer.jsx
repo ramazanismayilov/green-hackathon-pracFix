@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-import { FaInstagram } from "react-icons/fa";
-import { CiFacebook, CiTwitter } from "react-icons/ci";
+import { FaInstagram , FaFacebook, FaTwitter } from "react-icons/fa";
 
 function Footer() {
   return (
@@ -17,9 +16,9 @@ function Footer() {
           <div className="flex flex-col">
             <h2 className="text-xl font-semibold text-white">Follow Us!</h2>
             <div className="flex gap-4 mt-2">
-              <a href="#" className="text-green-300 hover:text-green-100 text-2xl"><FaInstagram /></a>
-              <a href="#" className="text-green-300 hover:text-green-100 text-2xl"><CiFacebook /></a>
-              <a href="#" className="text-green-300 hover:text-green-100 text-2xl"><CiTwitter /></a>
+            <a href="#" className="text-black text-2xl"><FaInstagram /></a>
+              <a href="#" className="text-black text-2xl"><FaFacebook /></a>
+              <a href="#" className="text-black text-2xl"><FaTwitter /></a>
             </div>
           </div>
         </div>

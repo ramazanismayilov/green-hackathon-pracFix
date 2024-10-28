@@ -4,7 +4,7 @@ import axios from "axios";
 import Rating from "@mui/material/Rating";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 
 function PostDetails() {
   const [post, setPost] = useState(null);
@@ -73,72 +73,76 @@ function PostDetails() {
     setOpenDialog(false);
   };
 
-  if (loading) return <div>Yükleniyor...</div>;
+  if (loading) return <div className="flex items-center min-h-[200px] justify-center"> <CircularProgress sx={{color : "green"}} /></div>;
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="flex gap-5 flex-wrap">
-      <img className="w-1/2" src={`https://pracfix-back.onrender.com/${post.blogPhoto}`} alt="" />
-      
-      <div className="flex flex-col gap-3">
-        <h1 className="text-xl font-bold">{post?.title}</h1>
-        <p>{post?.content}</p>
-        <p>{post?.description}</p>
+    <div className="flex gap-8 flex-wrap justify-between mt-10 p-5 bg-white rounded-lg shadow-lg">
+  <img className="w-full  rounded-lg shadow-md transition-transform duration-300 hover:scale-105" src={`https://pracfix-back.onrender.com/${post.blogPhoto}`} alt={post?.title} />
 
-        <div className="review-section">
-          <h2>Değerlendirme Yap</h2>
-          <Rating
-            name="rating"
-            value={rating}
-            onChange={(event, newValue) => {
-              setRating(newValue);
-            }}
-          />
+  <div className="flex flex-col gap-5 w-full max-w-xl">
+    <h1 className="text-3xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-200">{post?.title}</h1>
+    <p className="text-gray-700 leading-relaxed">{post?.content}</p>
+    <p className="text-gray-600">{post?.description}</p>
 
-          <div className="flex flex-col gap-5">
-            <TextField
-              label="Yorum"
-              variant="outlined"
-              fullWidth
-              multiline
-              rows={4}
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            />
-            
-            <Button variant="contained" color="primary" onClick={handleReviewSubmit}>
-              Yorum Ekle
-            </Button>
+    <div className="flex flex-col gap-4">
+      <h2 className="text-xl font-semibold text-gray-800">İstifadəçi Rəyləri</h2>
+      {reviews.map((review, index) => (
+        <div key={index} className="flex gap-4 p-4 border border-gray-300 rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-200">
+          <div className="flex flex-col">
+            <Rating value={review.rating} readOnly />
+            <small className="text-gray-600 font-semibold">
+              {review.user.firstName} {review.user.lastName}
+            </small>
           </div>
+          <p className="text-gray-800">{review.comment}</p>
         </div>
-
-        <div className="reviews">
-          <h2>Yorumlar</h2>
-          {reviews.map((review, index) => (
-            <div key={index} className="review">
-              <Rating value={review.rating} readOnly />
-              <small>{review.user.firstName} {review.user.lastName}</small>
-              <p>{review.comment}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Kayıt Olmanız Gerek</DialogTitle>
-        <DialogContent>
-          <p>Yorum yapabilmek için lütfen kaydolun.</p>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
-            Kapat
-          </Button>
-          <Button onClick={() => { window.location.href = '/register'; }} color="primary">
-            Kayıt Ol
-          </Button>
-        </DialogActions>
-      </Dialog>
+      ))}
     </div>
+
+    <div className="flex flex-col gap-6">
+      <h2 className="text-lg font-semibold text-gray-800">Rəy Bildir</h2>
+      <TextField
+        label="Yorumunuzu yazın..."
+        variant="outlined"
+        fullWidth
+        multiline
+        rows={4}
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+        className="rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+      />
+      <div className="flex items-center gap-3">
+        <Rating
+          name="rating"
+          value={rating}
+          onChange={(event, newValue) => {
+            setRating(newValue);
+          }}
+        />
+        <Button variant="contained" color="primary" onClick={handleReviewSubmit} className="shadow-md hover:shadow-lg transition-shadow duration-200">
+          Yorum Ekle
+        </Button>
+      </div>
+    </div>
+  </div>
+
+  <Dialog open={openDialog} onClose={handleCloseDialog}>
+    <DialogTitle className="text-lg font-bold">Kayıt Olmanız Gerek</DialogTitle>
+    <DialogContent>
+      <p className="text-gray-700">Yorum yapabilmek için lütfen kaydolun.</p>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={handleCloseDialog} color="secondary">
+        Kapat
+      </Button>
+      <Button onClick={() => { window.location.href = '/register'; }} color="primary">
+        Kayıt Ol
+      </Button>
+    </DialogActions>
+  </Dialog>
+</div>
+
   );
 }
 

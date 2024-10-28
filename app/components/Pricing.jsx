@@ -4,7 +4,7 @@ import { FaCheck } from "react-icons/fa6";
 const pricingPlans = [
   {
     name: "Pulsuz Plan",
-    price: "$0",
+    price: 0,
     description: "Yeni başlayanlar üçün əsas xüsusiyyətlər.",
     features: [
       "Məhdud mütəxəssis dəstəyi",
@@ -15,7 +15,7 @@ const pricingPlans = [
   },
   {
     name: "Tələbə Planı",
-    price: "$15",
+    price: 15,
     description: "Tələbələr üçün xüsusi təlim və dəstək.",
     features: [
       "Müəyyən mütəxəssis dəstəyi",
@@ -27,7 +27,7 @@ const pricingPlans = [
   },
   {
     name: "Premium Plan",
-    price: "$29",
+    price: 29,
     description: "Daha geniş dəstək və xüsusiyyətlər.",
     features: [
       "Tam mütəxəssis dəstəyi",
@@ -39,7 +39,7 @@ const pricingPlans = [
   },
   {
     name: "İllik Plan",
-    price: "$49",
+    price: 49,
     description: "Tam dəstək və geniş imkanlar.",
     features: [
       "Prioritet mütəxəssis dəstəyi",
@@ -60,7 +60,7 @@ function Pricing() {
           <div key={index} className="bg-white shadow-lg rounded-lg px-5 py-10 flex flex-col">
             <h3 className="text-2xl text-center font-semibold mb-2">{plan.name}</h3>
             <p className="text-gray-600 text-center mb-4">{plan.description}</p>
-            <p className="text-4xl font-bold text-center my-4">{plan.price}</p>
+            <p className="text-4xl font-bold text-center my-4">${plan.price}</p>
             <ul className="list-disc list-inside flex flex-col gap-3 mb-4">
               {plan.features.map((feature, idx) => (
                 <li key={idx} className="flex items-center gap-2">

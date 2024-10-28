@@ -27,7 +27,7 @@ const services = [
 
 function Services() {
   return (
-    <div className="py-10 px-5 my-10">
+    <div className="py-10 my-10">
       <h2 className="text-4xl font-bold text-center mb-6">Xidmətlərimiz</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {services.map((service, index) => (

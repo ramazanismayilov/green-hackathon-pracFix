@@ -8,6 +8,8 @@ import Services from './components/Services'
 import Pricing from './components/Pricing'
 import Navbar from './components/Navbar'
 import "./globals.css";
+import Chatbot from './components/Chatbot'
+
 
 
 function page() {
@@ -20,13 +22,8 @@ function page() {
 
   return (
     <>
-      <Container sx={{padding : "20px" , display: "flex" , flexDirection : "column" , gap : "3px" }}    >
+      <Container sx={{padding : "20px" , display: "flex" , flexDirection : "column" , gap : "3px" , position : "relative" }}    >
       <Navbar/>
-
-      <div className='fixed right-10 bottom-10 w-[100px] flex items-center justify-center rounded-full text-white h-[100px] bg-green-600'>WP</div>
-
-
-
 
       <Hero />
       <Services />
@@ -34,6 +31,7 @@ function page() {
       <AllPosts/>
     </Container>
       <Footer />
+      <Chatbot/>
     </>
   )
 }
