@@ -11,6 +11,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+import PostCard from "./PostCard";
 
 function PostDetails() {
   const [post, setPost] = useState(null);
@@ -19,6 +20,7 @@ function PostDetails() {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [reviews, setReviews] = useState([]);
+  const [relatedPosts, setRelatedPosts] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
 
   const userId =
@@ -52,8 +54,20 @@ function PostDetails() {
       }
     };
 
+    const fetchRelatedPosts = async () => {
+      try {
+        const response = await axios.get(
+          "https://pracfix-back.onrender.com/api/post"
+        );
+        setRelatedPosts(response.data);
+      } catch (error) {
+        console.error("Related posts alınırken hata:", error);
+      }
+    };
+
     fetchPost();
     fetchReviews();
+    fetchRelatedPosts();
   }, []);
 
   const handleReviewSubmit = async () => {
@@ -68,11 +82,7 @@ function PostDetails() {
     try {
       const response = await axios.post(
         `https://pracfix-back.onrender.com/api/review/${postId}`,
-        {
-          rating,
-          comment,
-          userId,
-        }
+        { rating, comment, userId }
       );
 
       setReviews((prevReviews) => [...prevReviews, response.data.review]);
@@ -90,29 +100,29 @@ function PostDetails() {
   if (loading)
     return (
       <div className="flex items-center min-h-[200px] justify-center">
-        {" "}
         <CircularProgress sx={{ color: "green" }} />
       </div>
     );
+
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="flex gap-8 flex-wrap justify-between mt-10 p-5 bg-white rounded-lg shadow-lg">
+    <div className="flex gap-8 mt-10 p-5 bg-gray-50">
+    <div className="flex-1">
       <img
-        className="w-full  rounded-lg shadow-md transition-transform duration-300 hover:scale-105"
+        className="w-full rounded-lg shadow-md transition-transform duration-300 hover:scale-105"
         src={`https://pracfix-back.onrender.com/${post.blogPhoto}`}
         alt={post?.title}
       />
-
-      <div className="flex flex-col gap-5 w-full max-w-xl">
-        <h1 className="text-3xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-200">
+      <div className="flex flex-col gap-5 mt-4">
+        <h1 className="text-3xl font-bold text-gray-900 hover:text-blue-600 transition-colors duration-200">
           {post?.title}
         </h1>
         <p className="text-gray-700 leading-relaxed">{post?.content}</p>
         <p className="text-gray-600">{post?.description}</p>
 
         <div className="flex flex-col gap-4">
-          <h2 className="text-xl font-semibold text-gray-800">
+          <h2 className="text-xl font-semibold text-gray-900">
             İstifadəçi Rəyləri
           </h2>
           {reviews.map((review, index) => (
@@ -131,8 +141,8 @@ function PostDetails() {
           ))}
         </div>
 
-        <div className="flex flex-col gap-6">
-          <h2 className="text-lg font-semibold text-gray-800">Rəy Bildir</h2>
+        <div className="flex flex-col gap-6 mt-4">
+          <h2 className="text-lg font-semibold text-gray-900">Rəy Bildir</h2>
           <TextField
             label="Yorumunuzu yazın..."
             variant="outlined"
@@ -147,13 +157,14 @@ function PostDetails() {
             <Rating
               name="rating"
               value={rating}
-              onChange={(event, newValue) => {
-                setRating(newValue);
-              }}
+              onChange={(event, newValue) => setRating(newValue)}
             />
             <Button
               variant="contained"
-              color="primary"
+              style={{
+                backgroundColor: "#4CAF50", 
+                color: "white",
+              }}
               onClick={handleReviewSubmit}
               className="shadow-md hover:shadow-lg transition-shadow duration-200"
             >
@@ -162,31 +173,51 @@ function PostDetails() {
           </div>
         </div>
       </div>
-
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle className="text-lg font-bold">
-          Kayıt Olmanız Gerek
-        </DialogTitle>
-        <DialogContent>
-          <p className="text-gray-700">
-            Yorum yapabilmek için lütfen kaydolun.
-          </p>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="secondary">
-            Kapat
-          </Button>
-          <Button
-            onClick={() => {
-              window.location.href = "/register";
-            }}
-            color="primary"
-          >
-            Kayıt Ol
-          </Button>
-        </DialogActions>
-      </Dialog>
     </div>
+
+    <div className="flex flex-col gap-4 w-1/3">
+      <h2 className="text-2xl font-semibold text-gray-900">
+        Digər postlar
+      </h2>
+      {relatedPosts.map((post) => (
+        <PostCard
+          key={post.id}
+          date={post.createdAt}
+          title={post.title}
+          description={post.description}
+          image={`https://pracfix-back.onrender.com/${post.blogPhoto}`}
+          id={post._id}
+        />
+      ))}
+    </div>
+
+    <Dialog open={openDialog} onClose={handleCloseDialog}>
+      <DialogTitle className="text-lg font-bold">
+        Kayıt Olmanız Gerek
+      </DialogTitle>
+      <DialogContent>
+        <p className="text-gray-700">
+          Yorum yapabilmek için lütfen kaydolun.
+        </p>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCloseDialog} color="secondary">
+          Kapat
+        </Button>
+        <Button
+          onClick={() => {
+            window.location.href = "/register";
+          }}
+          style={{
+            backgroundColor: "#4CAF50", 
+            color: "white",
+          }}
+        >
+          Kayıt Ol
+        </Button>
+      </DialogActions>
+    </Dialog>
+  </div>
   );
 }
 

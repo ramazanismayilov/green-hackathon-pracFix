@@ -13,11 +13,11 @@ function PostCard({ title, description, image, date, id }) {
           {new Date(date).toLocaleDateString()}
         </p>
         <h2 className="font-bold text-xl mt-1">
-          {title.slice(0, 20)}
+          {title?.slice(0, 20)}
           {title > 20 ? "..." : ""}
         </h2>
         <p className="text-gray-600 text-[15px] mt-2 mb-4">
-          {description.slice(0, 80)}...
+          {description?.slice(0, 80)}...
         </p>
         <a
           href={`/posts/${id}`}
