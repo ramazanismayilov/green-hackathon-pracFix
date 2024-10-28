@@ -2,7 +2,14 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Container, TextField, Button, Typography, Box } from "@mui/material";
+import {
+  Container,
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Grid,
+} from "@mui/material";
 import emailjs from "emailjs-com";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaPhoneAlt } from "react-icons/fa";
@@ -132,112 +139,146 @@ function page() {
         <Navbar />
       </Container>
       <Container sx={{ padding: "40px" }}>
-        <h1 className="text-center font-semibold text-4xl mb-10">
+        <Typography
+          variant="h1"
+          className="text-center font-semibold text-4xl mb-10"
+        >
           Bizimlə Əlaqə
-        </h1>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="bg-[#04d18e] p-8 h-full col-span-1 border rounded-2xl">
-            <h2 className="text-white text-2xl font-semibold">
-              Gəlin əlaqə saxlayaq
-            </h2>
-            <p className="text-white font-semibold mt-3">
-              İstənilən təklifə və ya sadəcə <br /> söhbətə açığıq
-            </p>
-            <div className="flex flex-col gap-5 mt-5">
-              {socialMediaLinks.map((social) => (
-                <div className="flex items-center gap-5" key={social.id}>
-                  <div className="p-3 border-2 border-[#ccc] rounded-full text-white flex items-center justify-center">
-                    {social.icon}
-                  </div>
-                  <div className="flex items-center gap-2">
+        </Typography>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={4}>
+            <Box
+              sx={{
+                backgroundColor: "#04d18e",
+                p: 4,
+                borderRadius: "16px",
+                height: "100%",
+              }}
+            >
+              <Typography
+                variant="h2"
+                className="text-white text-2xl font-semibold"
+              >
+                Gəlin əlaqə saxlayaq
+              </Typography>
+              <Typography
+                variant="body1"
+                className="text-white font-semibold mt-3"
+              >
+                İstənilən təklifə və ya sadəcə <br /> söhbətə açığıq
+              </Typography>
+              <Box
+                sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}
+              >
+                {socialMediaLinks.map((social) => (
+                  <Box
+                    key={social.id}
+                    sx={{ display: "flex", alignItems: "center", gap: 2 }}
+                  >
+                    <Box
+                      sx={{
+                        p: 1,
+                        border: "2px solid #ccc",
+                        borderRadius: "50%",
+                        color: "white",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {social.icon}
+                    </Box>
                     <a
                       href={social.link}
                       className="text-white font-bold text-[18px]"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       {social.content}
                     </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            display="flex"
-            flexDirection="column"
-            gap={2}
-            className="col-span-2"
-          >
-            {["name", "surname", "email", "phone", "message"].map(
-              (label, index) => (
-                <div key={index}>
-                  <TextField
-                    label={label.charAt(0).toUpperCase() + label.slice(1)}
-                    name={label}
-                    variant="outlined"
-                    fullWidth
-                    multiline={label === "message"}
-                    rows={label === "message" ? 4 : 1}
-                    value={formData[label]}
-                    onChange={handleChange}
-                    sx={{
-                      backgroundColor: "white",
-                      borderRadius: "5px",
-                      "& .MuiOutlinedInput-root": {
-                        "& fieldset": {
-                          borderColor: "#ccc",
-                        },
-                        "&:hover fieldset": {
-                          borderColor: "#04d18e",
-                        },
-                        "&.Mui-focused fieldset": {
-                          borderColor: "#04d18e",
-                        },
-                      },
-                      "& .MuiInputLabel-root": {
-                        color: "#ccc",
-                        "&.Mui-focused": {
-                          color: "#04d18e",
-                        },
-                      },
-                    }}
-                  />
-
-                  {errors[label] && (
-                    <Typography
-                      className="mt-2 text-[13px]"
-                      variant="body2"
-                      color="error"
-                    >
-                      {errors[label]}
-                    </Typography>
-                  )}
-                </div>
-              )
-            )}
-
-            <Button
-              variant="contained"
-              size="large"
-              type="submit"
-              sx={{
-                marginTop: "20px",
-                padding: "10px 20px",
-                fontSize: "16px",
-                borderRadius: "5px",
-                fontWeight: "bold",
-                backgroundColor: "#04d18e",
-                color: "white",
-                "&:hover": {
-                  backgroundColor: "#388e3c",
-                },
-              }}
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              display="flex"
+              flexDirection="column"
+              gap={2}
             >
-              Göndər
-            </Button>
-          </Box>
-        </div>
+              {["name", "surname", "email", "phone", "message"].map(
+                (label, index) => (
+                  <div key={index}>
+                    <TextField
+                      label={label.charAt(0).toUpperCase() + label.slice(1)}
+                      name={label}
+                      variant="outlined"
+                      fullWidth
+                      multiline={label === "message"}
+                      rows={label === "message" ? 4 : 1}
+                      value={formData[label]}
+                      onChange={handleChange}
+                      sx={{
+                        backgroundColor: "white",
+                        borderRadius: "5px",
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            borderColor: "#ccc",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "#04d18e",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "#04d18e",
+                          },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "#ccc",
+                          "&.Mui-focused": {
+                            color: "#04d18e",
+                          },
+                        },
+                      }}
+                    />
+
+                    {errors[label] && (
+                      <Typography
+                        className="mt-2 text-[13px]"
+                        variant="body2"
+                        color="error"
+                      >
+                        {errors[label]}
+                      </Typography>
+                    )}
+                  </div>
+                )
+              )}
+
+              <Button
+                variant="contained"
+                size="large"
+                type="submit"
+                sx={{
+                  marginTop: "20px",
+                  padding: "10px 20px",
+                  fontSize: "16px",
+                  borderRadius: "5px",
+                  fontWeight: "bold",
+                  backgroundColor: "#04d18e",
+                  color: "white",
+                  "&:hover": {
+                    backgroundColor: "#388e3c",
+                  },
+                }}
+              >
+                Göndər
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
       </Container>
       <Snackbar
         open={openSnackbar}
