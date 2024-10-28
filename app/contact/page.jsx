@@ -2,23 +2,19 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import {
-  Container,
-  TextField,
-  Button,
-  Typography,
-  Box,
-  Grid,
-  Snackbar,
-} from "@mui/material";
-import MuiAlert from "@mui/material/Alert";
+import { Container, TextField, Button, Typography, Box } from "@mui/material";
 import emailjs from "emailjs-com";
+import { FaLocationDot } from "react-icons/fa6";
+import { FaPhoneAlt } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { FaFacebookF } from "react-icons/fa";
+import { MdOutlineEmail } from "react-icons/md";
+import { Snackbar, Alert } from "@mui/material";
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
-function Page() {
+function page() {
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [severity, setSeverity] = useState("success");
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     surname: "",
@@ -34,9 +30,6 @@ function Page() {
     phone: "",
     message: "",
   });
-
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -88,100 +81,96 @@ function Page() {
           phone: "",
           message: "",
         });
-        setSnackbarMessage("Mesajınız göndərildi!");
+        setSnackbarMessage("Email uğurla göndərildi!");
+        setSeverity("success");
         setOpenSnackbar(true);
       })
       .catch((err) => {
         console.error("Failed to send email:", err);
-        setSnackbarMessage("Mesaj göndərilərkən xəta baş verdi.");
+        setSnackbarMessage("Email göndərərkən xəta baş verdi.");
+        setSeverity("error");
         setOpenSnackbar(true);
       });
   };
 
-  const handleCloseSnackbar = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenSnackbar(false);
-  };
+  const socialMediaLinks = [
+    {
+      id: 1,
+      icon: <FaLocationDot className="text-xl" />,
+      content: "Ganja, Azerbaycan",
+      link: "https://www.google.com/maps?q=Ganja,+Azerbaycan",
+    },
+    {
+      id: 2,
+      icon: <FaPhoneAlt className="text-xl" />,
+      content: "+994 99 808 6988",
+      link: "https://wa.me/994998086988",
+    },
+    {
+      id: 3,
+      icon: <MdOutlineEmail className="text-xl" />,
+      content: "pracfixstudio@gmail.com",
+      link: "mailto:pracfixstudio@gmail.com",
+    },
+    {
+      id: 4,
+      icon: <FaInstagram className="text-xl" />,
+      content: "pracfix",
+      link: "https://www.instagram.com/pracfix/",
+    },
+    {
+      id: 5,
+      icon: <FaFacebookF className="text-xl" />,
+      content: "pracfix",
+      link: "https://www.facebook.com/profile.php?id=61566216962404&rdid=DEf0wwnKFUAEms7l&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2FGajzi1LSjibNQuX3%2F",
+    },
+  ];
 
   return (
-    <div>
+    <>
       <Container sx={{ padding: "20px" }}>
         <Navbar />
       </Container>
-      <div
-        className="relative h-[50vh] bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://t3.ftcdn.net/jpg/05/30/96/04/360_F_530960431_c8fPd3HansYvrSJ4fJxZqp9OhjQmYoll.jpg')",
-        }}
-      >
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 flex items-center justify-center h-full text-center text-white px-4">
-          <div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">Bizimlə Əlaqə</h1>
-            <div className="flex items-center justify-center gap-3">
-              <a href="/">Ana səhifə</a>
-              {" / "}
-              <a href="#">Bizimlə Əlaqə</a>
+      <Container sx={{ padding: "40px" }}>
+        <h1 className="text-center font-semibold text-4xl mb-10">
+          Bizimlə Əlaqə
+        </h1>
+        <div className="grid grid-cols-3 gap-4">
+          <div className="bg-[#04d18e] p-8 h-full col-span-1 border rounded-2xl">
+            <h2 className="text-white text-2xl font-semibold">
+              Gəlin əlaqə saxlayaq
+            </h2>
+            <p className="text-white font-semibold mt-3">
+              İstənilən təklifə və ya sadəcə <br /> söhbətə açığıq
+            </p>
+            <div className="flex flex-col gap-5 mt-5">
+              {socialMediaLinks.map((social) => (
+                <div className="flex items-center gap-5" key={social.id}>
+                  <div className="p-3 border-2 border-[#ccc] rounded-full text-white flex items-center justify-center">
+                    {social.icon}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={social.link}
+                      className="text-white font-bold text-[18px]"
+                    >
+                      {social.content}
+                    </a>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </div>
-      <Container sx={{ padding: "40px" }}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 2,
-                backgroundColor: "#f5f5f5",
-                padding: 3,
-                borderRadius: "8px",
-                boxShadow: 2,
-              }}
-            >
-              <Typography variant="h6" sx={{ color: "#000", fontWeight: "bold" }}>
-                Telefon:
-              </Typography>
-              <Typography variant="body1" sx={{ color: "#000" }}>
-                <a href="tel:+994998086988" className="text-black">
-                  +994 99 808 6988
-                </a>
-              </Typography>
-
-              <Typography variant="h6" sx={{ color: "#000", fontWeight: "bold" }}>
-                Email:
-              </Typography>
-              <Typography variant="body1" sx={{ color: "#000" }}>
-                <a
-                  href="mailto:pracfixstudio@gmail.com"
-                  className="text-black"
-                >
-                  pracfixstudio@gmail.com
-                </a>
-              </Typography>
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Box
-              component="form"
-              onSubmit={handleSubmit}
-              display="flex"
-              flexDirection="column"
-              gap={2}
-              width="100%"
-              sx={{
-                backgroundColor: "#f5f5f5",
-                padding: 3,
-                borderRadius: "8px",
-                boxShadow: 2,
-              }}
-            >
-              {["name", "surname", "email", "phone", "message"].map((label, index) => (
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            display="flex"
+            flexDirection="column"
+            gap={2}
+            className="col-span-2"
+          >
+            {["name", "surname", "email", "phone", "message"].map(
+              (label, index) => (
                 <div key={index}>
                   <TextField
                     label={label.charAt(0).toUpperCase() + label.slice(1)}
@@ -192,42 +181,80 @@ function Page() {
                     rows={label === "message" ? 4 : 1}
                     value={formData[label]}
                     onChange={handleChange}
+                    sx={{
+                      backgroundColor: "white",
+                      borderRadius: "5px",
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: "#ccc",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "#04d18e",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#04d18e",
+                        },
+                      },
+                      "& .MuiInputLabel-root": {
+                        color: "#ccc",
+                        "&.Mui-focused": {
+                          color: "#04d18e",
+                        },
+                      },
+                    }}
                   />
+
                   {errors[label] && (
-                    <Typography variant="body2" color="error">
+                    <Typography
+                      className="mt-2 text-[13px]"
+                      variant="body2"
+                      color="error"
+                    >
                       {errors[label]}
                     </Typography>
                   )}
                 </div>
-              ))}
+              )
+            )}
 
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                type="submit"
-                sx={{
-                  marginTop: "20px",
-                  padding: "10px 20px",
-                  fontSize: "16px",
-                  borderRadius: "5px",
-                  fontWeight: "bold",
-                }}
-              >
-                Göndər
-              </Button>
-            </Box>
-          </Grid>
-        </Grid>
+            <Button
+              variant="contained"
+              size="large"
+              type="submit"
+              sx={{
+                marginTop: "20px",
+                padding: "10px 20px",
+                fontSize: "16px",
+                borderRadius: "5px",
+                fontWeight: "bold",
+                backgroundColor: "#04d18e",
+                color: "white",
+                "&:hover": {
+                  backgroundColor: "#388e3c",
+                },
+              }}
+            >
+              Göndər
+            </Button>
+          </Box>
+        </div>
       </Container>
-      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
-        <Alert onClose={handleCloseSnackbar} severity="success">
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={() => setOpenSnackbar(false)}
+      >
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity={severity}
+          sx={{ width: "100%" }}
+        >
           {snackbarMessage}
         </Alert>
       </Snackbar>
       <Footer />
-    </div>
+    </>
   );
 }
 
-export default Page;
+export default page;

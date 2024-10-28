@@ -16,9 +16,9 @@ function Footer() {
           <div className="flex flex-col">
             <h2 className="text-xl font-semibold text-white">Follow Us!</h2>
             <div className="flex gap-4 mt-2">
-            <a href="#" className="text-black text-2xl"><FaInstagram /></a>
-              <a href="#" className="text-black text-2xl"><FaFacebook /></a>
-              <a href="#" className="text-black text-2xl"><FaTwitter /></a>
+              <a href="https://www.instagram.com/pracfix/" className="text-green-100 hover:text-white text-2xl"><FaInstagram /></a>
+              <a href="https://www.facebook.com/profile.php?id=61566216962404&rdid=DEf0wwnKFUAEms7l&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2FGajzi1LSjibNQuX3%2F" className="text-green-100 hover:text-white text-2xl"><FaFacebook /></a>
+              <a href="#" className="text-green-100 hover:text-white text-2xl"><FaTwitter /></a>
             </div>
           </div>
         </div>

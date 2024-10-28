@@ -9,6 +9,7 @@ import Pricing from './components/Pricing'
 import Navbar from './components/Navbar'
 import "./globals.css";
 import Chatbot from './components/Chatbot'
+import Profile from './components/Profile'
 
 
 
@@ -28,6 +29,7 @@ function page() {
       <Hero />
       <Services />
       <Pricing />
+      <Profile />
       <AllPosts/>
     </Container>
       <Footer />
