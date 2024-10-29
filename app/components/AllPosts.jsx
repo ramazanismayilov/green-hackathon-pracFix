@@ -40,9 +40,9 @@ function AllPosts() {
   }
 
   return (
-    <div className="flex flex-col mt-10">
+    <div className="flex flex-col  mt-10">
       <h2 className="text-4xl text-center font-bold mb-6">Bütün Postlar</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl w-full">
+      <div className="grid grid-cols-1 items-center justify-center md:grid-cols-2 lg:grid-cols-3 gap-6  w-full">
         {posts.map((post) => (
           <PostCard
             key={post._id}

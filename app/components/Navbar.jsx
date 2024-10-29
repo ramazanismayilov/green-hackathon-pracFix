@@ -29,7 +29,7 @@ function Navbar() {
 
 
   return (
-    <div className='w-full flex items-center justify-between'>
+    <div className='w-full flex items-center justify-between z-50'>
       <div className='flex items-center justify-center gap-3' >
       <img src="/logo.jpg" className='w-[30px] md:w-[50px]' alt="" />
       <a href="/" className='text-3xl font-bold'>Prac

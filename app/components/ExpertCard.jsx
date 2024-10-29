@@ -7,7 +7,7 @@ function ExpertCard({
   email,
   deneyim,
   uzmanlikAlanlari,
-  userId,
+  userId
 }) {
   return (
     <div className="bg-white px-10 py-6 rounded-xl shadow-lg flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105 hover:shadow-xl border-transparent border-2 hover:border-green-500">

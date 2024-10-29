@@ -6,9 +6,10 @@ import {
   Container,
   TextField,
   Button,
-  Typography,
   Box,
   Grid,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import emailjs from "emailjs-com";
 import { FaLocationDot } from "react-icons/fa6";
@@ -16,9 +17,8 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
-import { Snackbar, Alert } from "@mui/material";
 
-function page() {
+function Page() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [severity, setSeverity] = useState("success");
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -80,7 +80,6 @@ function page() {
         "NxA3z0j-2elWjKsWZ"
       )
       .then((response) => {
-        console.log("Email sent successfully:", response.status, response.text);
         setFormData({
           name: "",
           surname: "",
@@ -93,7 +92,6 @@ function page() {
         setOpenSnackbar(true);
       })
       .catch((err) => {
-        console.error("Failed to send email:", err);
         setSnackbarMessage("Email göndərərkən xəta baş verdi.");
         setSeverity("error");
         setOpenSnackbar(true);
@@ -129,7 +127,7 @@ function page() {
       id: 5,
       icon: <FaFacebookF className="text-xl" />,
       content: "pracfix",
-      link: "https://www.facebook.com/profile.php?id=61566216962404&rdid=DEf0wwnKFUAEms7l&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2FGajzi1LSjibNQuX3%2F",
+      link: "https://www.facebook.com/pracfix",
     },
   ];
 
@@ -139,12 +137,7 @@ function page() {
         <Navbar />
       </Container>
       <Container sx={{ padding: "40px" }}>
-        <Typography
-          variant="h1"
-          className="text-center font-semibold text-4xl mb-10"
-        >
-          Bizimlə Əlaqə
-        </Typography>
+        <h1 className="text-center font-semibold text-4xl mb-10">Bizimlə Əlaqə</h1>
         <Grid container spacing={4}>
           <Grid item xs={12} md={4}>
             <Box
@@ -155,18 +148,10 @@ function page() {
                 height: "100%",
               }}
             >
-              <Typography
-                variant="h2"
-                className="text-white text-2xl font-semibold"
-              >
-                Gəlin əlaqə saxlayaq
-              </Typography>
-              <Typography
-                variant="body1"
-                className="text-white font-semibold mt-3"
-              >
+              <h2 className="text-white text-2xl font-semibold">Gəlin əlaqə saxlayaq</h2>
+              <p className="text-white font-semibold mt-3">
                 İstənilən təklifə və ya sadəcə <br /> söhbətə açığıq
-              </Typography>
+              </p>
               <Box
                 sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}
               >
@@ -243,20 +228,14 @@ function page() {
                         },
                       }}
                     />
-
                     {errors[label] && (
-                      <Typography
-                        className="mt-2 text-[13px]"
-                        variant="body2"
-                        color="error"
-                      >
+                      <p className="mt-2 text-[13px] text-red-600">
                         {errors[label]}
-                      </Typography>
+                      </p>
                     )}
                   </div>
                 )
               )}
-
               <Button
                 variant="contained"
                 size="large"
@@ -298,4 +277,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

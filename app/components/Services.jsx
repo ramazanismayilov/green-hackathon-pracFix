@@ -38,6 +38,8 @@ function Services() {
             <div className="text-5xl mb-4  ">{service.icon}</div>
             <h3 className="text-2xl font-semibold mb-2 text-center">{service.title}</h3>
             <p className="text-gray-600 text-sm text-center">{service.description}</p>
+            <a href="/service" className="mt-auto text-[#116860] font-medium">Ətraflı bax</a>
+
           </div>
         ))}
       </div>
