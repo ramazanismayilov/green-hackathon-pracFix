@@ -142,7 +142,7 @@ function Page() {
           <Grid item xs={12} md={4}>
             <Box
               sx={{
-                backgroundColor: "#04d18e",
+                backgroundColor: "#106861",
                 p: 4,
                 borderRadius: "16px",
                 height: "100%",
@@ -214,16 +214,16 @@ function Page() {
                             borderColor: "#ccc",
                           },
                           "&:hover fieldset": {
-                            borderColor: "#04d18e",
+                            borderColor: "#106861",
                           },
                           "&.Mui-focused fieldset": {
-                            borderColor: "#04d18e",
+                            borderColor: "#106861",
                           },
                         },
                         "& .MuiInputLabel-root": {
                           color: "#ccc",
                           "&.Mui-focused": {
-                            color: "#04d18e",
+                            color: "#106861",
                           },
                         },
                       }}
@@ -246,10 +246,10 @@ function Page() {
                   fontSize: "16px",
                   borderRadius: "5px",
                   fontWeight: "bold",
-                  backgroundColor: "#04d18e",
+                  backgroundColor: "#106861",
                   color: "white",
                   "&:hover": {
-                    backgroundColor: "#388e3c",
+                    backgroundColor: "#106863",
                   },
                 }}
               >

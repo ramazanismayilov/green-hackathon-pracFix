@@ -10,7 +10,7 @@ function ExpertCard({
   userId
 }) {
   return (
-    <div className="bg-white px-10 py-6 rounded-xl shadow-lg flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105 hover:shadow-xl border-transparent border-2 hover:border-green-500">
+    <div className="bg-white px-10 py-6 rounded-xl shadow-lg flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105 hover:shadow-xl border-transparent border-2 hover:border-[#106861]">
       {profilePhoto && (
         <img
           className="w-[130px] h-[130px] rounded-full shadow-lg"
@@ -36,7 +36,7 @@ function ExpertCard({
       )}
       <a
         href={`/expert-profiles/${userId}`}
-        className="text-green-500 font-semibold transition-colors duration-300 hover:text-green-700"
+        className="text-[#106861] font-semibold transition-colors duration-300 hover:text-green-700"
       >
         Profili Gör
       </a>

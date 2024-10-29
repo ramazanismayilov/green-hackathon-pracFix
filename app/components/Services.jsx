@@ -33,9 +33,9 @@ function Services() {
         {services.map((service, index) => (
           <div
             key={index}
-            className="bg-white shadow-lg rounded-lg p-5 flex flex-col items-center transition-transform transform hover:scale-105 hover:shadow-xl" // Tailwind sinifləri ilə stil
+            className="bg-white shadow-lg rounded-lg p-5 flex flex-col items-center transition-transform transform hover:scale-105 hover:shadow-xl border hover:border-[#106861] duration-300" // Tailwind sinifləri ilə stil
           >
-            <div className="text-5xl mb-4  ">{service.icon}</div>
+            <div className="text-5xl mb-4">{service.icon}</div>
             <h3 className="text-2xl font-semibold mb-2 text-center">{service.title}</h3>
             <p className="text-gray-600 text-sm text-center">{service.description}</p>
             <a href="/service" className="mt-auto text-[#116860] font-medium">Ətraflı bax</a>

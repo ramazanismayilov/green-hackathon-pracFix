@@ -3,7 +3,7 @@ import { Container } from '@mui/material'
 import React from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { FaBriefcase, FaHandshake, FaSeedling } from 'react-icons/fa'
+import { FaBriefcase, FaCheck, FaHandshake, FaSeedling } from 'react-icons/fa'
 import { GiFarmTractor } from 'react-icons/gi'
 import Pricing from '../components/Pricing'
 
@@ -69,14 +69,16 @@ function page() {
       <h2 className="text-4xl font-bold text-center mb-10">Xidmətlərimiz Haqqında</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {services.map((service, index) => (
-          <div key={index} className="bg-white shadow-lg rounded-lg p-6">
+          <div key={index} className="bg-white shadow-lg rounded-lg p-6 hover:border-[#106861] border-2 duration-300">
             <div className="flex items-center space-x-4 mb-4">
               <div className="text-5xl">{service.icon}</div>
-              <h3 className="text-3xl font-semibold">{service.title}</h3>
+              <h3 className="text-2xl font-semibold">{service.title}</h3>
             </div>
             <ul className="text-gray-700 text-lg list-disc pl-8 space-y-2">
               {service.descriptions.map((description, idx) => (
-                <li key={idx}>{description}</li>
+                <li key={idx} className="flex items-center gap-2 text-[15px]">
+                  <FaCheck className="text-[#106861]" />
+                  {description}</li>
               ))}
             </ul>
           </div>

@@ -2,7 +2,7 @@ import React from "react";
 
 function PostCard({ title, description, image, date, id }) {
   return (
-    <div className="bg-white w-full rounded-2xl shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-xl border-transparent border-2 hover:border-green-500 overflow-hidden">
+    <div className="bg-white w-full rounded-2xl shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-xl border-transparent border-2 hover:border-[#106861] overflow-hidden">
       <img
         className="shadow-lg rounded-t-2xl w-full h-48 object-cover"
         src={image}
@@ -21,7 +21,7 @@ function PostCard({ title, description, image, date, id }) {
         </p>
         <a
           href={`/posts/${id}`}
-          className="text-green-500 font-semibold transition-colors duration-300 hover:text-green-700"
+          className="text-[#106861] font-semibold transition-colors duration-300 hover:text-green-700"
         >
           Ətraflı bax
         </a>
