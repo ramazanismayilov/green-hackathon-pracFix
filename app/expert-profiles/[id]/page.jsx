@@ -54,7 +54,9 @@ const UserDetails = () => {
         const data = await response.json();
 
         if (response.ok) {
-          setUsers(data.experts);
+          // Yalnızca role değeri 1 olan kullanıcıları filtrele
+          const filteredUsers = data.experts.filter((user) => user.role === 1);
+          setUsers(filteredUsers);
         } else {
           console.error("İstifadəçilər əldə edilə bilmədi.");
         }
@@ -173,7 +175,6 @@ const UserDetails = () => {
                   Seçilen istifadəçi məlumatı tapılmadı.
                 </p>
               )}
-           
             </div>
           </Grid>
           <Grid item xs={12} md={3}>

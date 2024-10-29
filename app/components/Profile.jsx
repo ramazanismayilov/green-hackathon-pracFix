@@ -7,7 +7,6 @@ const UsersList = () => {
   const [loading, setLoading] = useState(true);
   const [isHomePage, setIsHomePage] = useState(false);
 
-  
   useEffect(() => {
     setIsHomePage(window.location.pathname === "/");
     const fetchUsers = async () => {
@@ -18,7 +17,9 @@ const UsersList = () => {
         const data = await response.json();
 
         if (response.ok) {
-          setUsers(data.experts);
+          // Sadece role değeri 1 olan kullanıcıları filtrele
+          const filteredUsers = data.experts.filter((user) => user.role === 1);
+          setUsers(filteredUsers);
         } else {
           console.error("İstifadəçilər əldə edilə bilmədi.");
         }
@@ -42,7 +43,7 @@ const UsersList = () => {
           <ExpertCard
             key={user._id}
             profilePhoto={user.profilePhoto}
-            firstName={user.firstName} 
+            firstName={user.firstName}
             lastName={user.lastName}
             email={isHomePage ? null : user.email}
             deneyim={isHomePage ? null : user.deneyim}

@@ -188,6 +188,7 @@ const SignupForm = () => {
                     </>
                 )}
 
+                
                 <div className="space-y-2">
                     <label className="text-gray-600">Profil Fotoğrafı:</label>
                     <input 
@@ -197,7 +198,6 @@ const SignupForm = () => {
                         className="w-full border border-gray-300 rounded-lg focus:outline-none"
                     />
                 </div>
-
                 <button 
                     type="submit"
                     className="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition-colors duration-200">
