@@ -10,7 +10,7 @@ const services = [
   },
   {
     icon: <FaHandshake style={{ color: "#106861" }} />,
-    title: "Mütexəssislərlə Birbaşa Əlaqə İmkanı",
+    title: "Mütəxəssislərlə Birbaşa Əlaqə İmkanı",
     description: "Fermerlər və investorlar mütexəssislərdən birbaşa yardım alırlar.",
   },
   {

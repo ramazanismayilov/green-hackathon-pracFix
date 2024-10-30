@@ -12,9 +12,7 @@ function page() {
         <Profile/>
     </Container>
     <Footer/>
-    
     </>
-  
   )
 }
 

@@ -17,7 +17,10 @@ function PostDetails() {
   const [relatedPosts, setRelatedPosts] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
 
+  // Kullanıcı bilgilerini localStorage'dan al
   const userId = typeof window !== "undefined" ? localStorage.getItem("userId") : null;
+  const userName = typeof window !== "undefined" ? localStorage.getItem("userName") : "Anonim";
+  const userLastName = typeof window !== "undefined" ? localStorage.getItem("userLastName") : "";
 
   useEffect(() => {
     const pathname = window.location.pathname;
@@ -25,9 +28,7 @@ function PostDetails() {
 
     const fetchPost = async () => {
       try {
-        const response = await axios.get(
-          `https://pracfix-back.onrender.com/api/post/post/${id}`
-        );
+        const response = await axios.get(`https://pracfix-back.onrender.com/api/post/post/${id}`);
         setPost(response.data);
       } catch (error) {
         setError("Gönderi yüklenirken bir hata oluştu.");
@@ -38,9 +39,7 @@ function PostDetails() {
 
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(
-          `https://pracfix-back.onrender.com/api/review/${id}`
-        );
+        const response = await axios.get(`https://pracfix-back.onrender.com/api/review/${id}`);
         setReviews(response.data.reviews);
       } catch (error) {
         console.error("Yorumlar alınırken hata:", error);
@@ -49,12 +48,10 @@ function PostDetails() {
 
     const fetchRelatedPosts = async () => {
       try {
-        const response = await axios.get(
-          "https://pracfix-back.onrender.com/api/post"
-        );
+        const response = await axios.get("https://pracfix-back.onrender.com/api/post");
         setRelatedPosts(response.data);
       } catch (error) {
-        console.error("Related posts alınırken hata:", error);
+        console.error("İlgili gönderiler alınırken hata:", error);
       }
     };
 
@@ -73,10 +70,13 @@ function PostDetails() {
     const postId = pathname.split("/").pop();
 
     try {
-      const response = await axios.post(
-        `https://pracfix-back.onrender.com/api/review/${postId}`,
-        { rating, comment, userId }
-      );
+      const response = await axios.post(`https://pracfix-back.onrender.com/api/review/${postId}`, {
+        rating,
+        comment,
+        userId,
+        userName,
+        userLastName,
+      });
 
       setReviews((prevReviews) => [...prevReviews, response.data.review]);
       setRating(0);
@@ -126,7 +126,7 @@ function PostDetails() {
                 <div className="flex flex-col">
                   <Rating value={review.rating} readOnly />
                   <small className="text-gray-600 font-semibold">
-                    {review.user.firstName} {review.user.lastName}
+                    {review.userName || "Anonim"} {review.userLastName || ""}
                   </small>
                 </div>
                 <p className="text-gray-800">{review.comment}</p>
@@ -174,7 +174,7 @@ function PostDetails() {
         </h2>
         {relatedPosts.map((post) => (
           <PostCard
-            key={post.id}
+            key={post._id}
             date={post.createdAt}
             title={post.title}
             description={post.description}

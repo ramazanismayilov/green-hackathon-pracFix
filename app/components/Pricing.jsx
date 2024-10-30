@@ -15,7 +15,7 @@ const pricingPlans = [
   },
   {
     name: "Tələbə Planı",
-    price: 15,
+    price: 29,
     description: "Tələbələr üçün xüsusi təlim və dəstək.",
     features: [
       "Müəyyən mütəxəssis dəstəyi",
@@ -27,7 +27,7 @@ const pricingPlans = [
   },
   {
     name: "Premium Plan",
-    price: 29,
+    price: 49,
     description: "Daha geniş dəstək və xüsusiyyətlər.",
     features: [
       "Tam mütəxəssis dəstəyi",
@@ -39,7 +39,7 @@ const pricingPlans = [
   },
   {
     name: "İllik Plan",
-    price: 49,
+    price: 79,
     description: "Tam dəstək və geniş imkanlar.",
     features: [
       "Prioritet mütəxəssis dəstəyi",

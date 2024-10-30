@@ -9,14 +9,41 @@ const SignupForm = () => {
         email: '',
         password: '',
         confirmPassword: '',
-        role: '2', // Varsayılan rol "Normal Kullanıcı" olarak string yapıldı
+        role: '2', // Varsayılan rol "Normal Kullanıcı"
         deneyim: '',
         uzmanlikAlanlari: ''
     });
     const [profilePhoto, setProfilePhoto] = useState(null);
     const [popup, setPopup] = useState({ show: false, message: '', status: '' });
-    const [categories, setCategories] = useState([]); // Uzmanlık alanları için state
-    const [showExpertFields, setShowExpertFields] = useState(false); // Role 1 ise göster
+    const [categories, setCategories] = useState([]);
+    const [showExpertFields, setShowExpertFields] = useState(false);
+    
+    // Şifre doğrulama fonksiyonu
+    const isPasswordValid = (password) => {
+        const regex = /^(?=.*[A-Za-z])(?=.*[sS])(?=.*\d)[A-Za-z\d]{6,}$/; // En az 6 karakter, en az bir harf, bir rakam ve 's'
+        return regex.test(password);
+    };
+
+    // Form alanlarının doğrulama kontrolleri
+    const validateForm = () => {
+        if (formData.password !== formData.confirmPassword) {
+            setPopup({ show: true, message: 'Şifreler uyuşmuyor!', status: 'error' });
+            return false;
+        }
+        if (!isPasswordValid(formData.password)) {
+            setPopup({ show: true, message: 'Şifre en az 6 karakter, bir rakam, bir harf ve "s" içermelidir.', status: 'error' });
+            return false;
+        }
+        if (formData.role === '1' && !formData.deneyim) {
+            setPopup({ show: true, message: 'Deneyim alanı boş olamaz!', status: 'error' });
+            return false;
+        }
+        if (formData.role === '1' && !formData.uzmanlikAlanlari) {
+            setPopup({ show: true, message: 'Uzmanlık alanı seçilmelidir!', status: 'error' });
+            return false;
+        }
+        return true;
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,9 +52,14 @@ const SignupForm = () => {
             [name]: value
         });
 
-        // Role değiştiğinde alanları sıfırlama işlemi
         if (name === 'role') {
             setShowExpertFields(value === '1');
+            // Rol değiştiğinde alanları sıfırlama
+            setFormData(prevState => ({
+                ...prevState,
+                deneyim: value === '1' ? prevState.deneyim : '',
+                uzmanlikAlanlari: value === '1' ? prevState.uzmanlikAlanlari : ''
+            }));
         }
     };
 
@@ -39,11 +71,11 @@ const SignupForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!validateForm()) return; // Doğrulama kontrolü
+
         const data = new FormData();
         for (let key in formData) {
-            // `deneyim` ve `uzmanlikAlanlari` varsa eklenir
-            if (key === 'deneyim' && formData.role === '2') continue;
-            if (key === 'uzmanlikAlanlari' && formData.role === '2') continue;
+            if ((key === 'deneyim' || key === 'uzmanlikAlanlari') && formData.role === '2') continue;
             data.append(key, formData[key]);
         }
         if (profilePhoto) {
@@ -61,12 +93,11 @@ const SignupForm = () => {
         }
     };
 
-    // Uzmanlık alanlarını API’den çekme
     useEffect(() => {
         const fetchCategories = async () => {
             try {
                 const response = await axios.get('https://pracfix-back.onrender.com/api/category');
-                setCategories(response.data); // API’den gelen kategorileri kaydet
+                setCategories(response.data);
             } catch (error) {
                 console.error("Uzmanlık alanları alınırken hata oluştu:", error);
             }
@@ -74,25 +105,10 @@ const SignupForm = () => {
         fetchCategories();
     }, []);
 
-
-    useEffect(() => {
-        if (formData.role !== '1') {
-            setFormData(prevState => ({
-                ...prevState,
-                deneyim: '',
-                uzmanlikAlanlari: ''
-            }));
-        }
-    }, [formData.role]);
-    
-
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 relative">
             {popup.show && (
-                <div
-                    className={`fixed top-5 left-1/2 transform -translate-x-1/2 px-4 py-3 rounded-lg shadow-lg text-white text-center transition-all duration-300 
-                    ${popup.status === 'success' ? 'bg-green-500' : 'bg-red-500'}`}
-                >
+                <div className={`fixed top-5 left-1/2 transform -translate-x-1/2 px-4 py-3 rounded-lg shadow-lg text-white text-center transition-all duration-300 ${popup.status === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
                     {popup.message}
                 </div>
             )}
@@ -169,6 +185,7 @@ const SignupForm = () => {
                             placeholder="Deneyim (yıl)" 
                             value={formData.deneyim} 
                             onChange={handleChange} 
+                            required
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
                         />
 
@@ -176,6 +193,7 @@ const SignupForm = () => {
                             name="uzmanlikAlanlari" 
                             value={formData.uzmanlikAlanlari} 
                             onChange={handleChange}
+                            required
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
                         >
                             <option value="" disabled>Uzmanlık Alanı Seçin</option>
@@ -188,7 +206,6 @@ const SignupForm = () => {
                     </>
                 )}
 
-                
                 <div className="space-y-2">
                     <label className="text-gray-600">Profil Fotoğrafı:</label>
                     <input 
