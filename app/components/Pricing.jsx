@@ -70,7 +70,7 @@ function Pricing() {
               ))}
             </ul>
             {plan.price !== 0 && (
-              <button className="bg-[#106861] hover:bg-white text-white hover:text-black border border-green-500 py-2 px-4 rounded mt-auto">
+              <button onClick={() => window.location.href = '/checkout'} className="bg-[#106861] hover:bg-white text-white hover:text-black border border-green-500 py-2 px-4 rounded mt-auto">
                 İndi Al
               </button>
             )}
